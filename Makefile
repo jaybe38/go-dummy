@@ -1,8 +1,8 @@
 include $(GOROOT)/src/Make.inc
 
 ODIR=bin
-TARG=hello
+TARG=wiki
 GOFILES=\
-	hello.go\
+	wiki.go\
 
 include $(GOROOT)/src/Make.cmd
