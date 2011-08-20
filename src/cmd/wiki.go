@@ -18,8 +18,9 @@ func (p *Page) save() os.Error {
 	filename := p.Title + ".txt"
 	return ioutil.WriteFile(filename, p.Body, 0577)
 }
-
-func loadPage(title string) (*Page, os.Error) {
+// LoadPage well, loads the page.
+// That's about it, really.
+func LoadPage(title string) (*Page, os.Error) {
 	filename := title + ".txt"
 	body, err := ioutil.ReadFile(filename)
 	if err != nil {
@@ -29,7 +30,7 @@ func loadPage(title string) (*Page, os.Error) {
 }
 
 func viewHandler(w http.ResponseWriter, r *http.Request, title string) {
-	p, err := loadPage(title)
+	p, err := LoadPage(title)
 	if err != nil {
 		http.Redirect(w, r, "/edit/"+title, http.StatusFound)
 		return
@@ -39,7 +40,7 @@ func viewHandler(w http.ResponseWriter, r *http.Request, title string) {
 }
 
 func editHandler(w http.ResponseWriter, r *http.Request, title string) {
-	p, err := loadPage(title)
+	p, err := LoadPage(title)
 	if err != nil {
 		p = &Page{Title: title}
 	}
