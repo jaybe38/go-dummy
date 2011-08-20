@@ -16,7 +16,7 @@ type Page struct {
 
 func (p *Page) save() os.Error {
 	filename := p.Title + ".txt"
-	return ioutil.WriteFile(filename, p.Body, 0600)
+	return ioutil.WriteFile(filename, p.Body, 0577)
 }
 
 func loadPage(title string) (*Page, os.Error) {
@@ -34,7 +34,7 @@ func viewHandler(w http.ResponseWriter, r *http.Request, title string) {
 		http.Redirect(w, r, "/edit/"+title, http.StatusFound)
 		return
 	}
-//	fmt.Fprintf(w, "<h1>%s</h1><div>%s</div>", p.Title, p.Body)
+	//	fmt.Fprintf(w, "<h1>%s</h1><div>%s</div>", p.Title, p.Body)
 	renderTemplate(w, "view", p)
 }
 
@@ -93,4 +93,5 @@ func main() {
 	http.HandleFunc("/edit/", makeHandler(editHandler))
 	http.HandleFunc("/save/", makeHandler(saveHandler))
 	http.ListenAndServe(":8080", nil)
+	http.Listen
 }
